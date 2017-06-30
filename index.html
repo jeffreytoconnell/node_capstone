@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Course Schedule</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h2>Date</h2>
+
+    <form>
+      <input type="radio" name="date" value="8117" checked> 8/1/17
+      <input type="radio" name="date" value="8217"> 8/2/17
+      <input type="radio" name="date" value="8317"> 8/3/17
+      <input type="radio" name="date" value="8417"> 8/4/17
+      <input type="radio" name="date" value="8517"> 8/5/17
+      <input type="radio" name="date" value="8617"> 8/6/17
+      <input type="radio" name="date" value="8717"> 8/7/17
+      <input type="radio" name="date" value="8817"> 8/8/17
+    </form>
+
+    <h2>Course</h2>
+
+    <form>
+      <input type="radio" name="course" value="ACLS" checked> ACLS<br>
+      <input type="radio" name="course" value="PALS"> PALS<br>
+      <input type="radio" name="course" value="BLS"> BLS
+    </form>
+
+    <h2>Location</h2>
+
+    <form>
+      <input type="radio" name="location" value="Roseville" checked> Roseville<br>
+      <input type="radio" name="location" value="West Sac"> West Sac<br>
+      <input type="radio" name="location" value="DGMC"> DGMC
+    </form>
+
+    <h2>Instructor List</h2>
+
+    <form id="cd-instructor-form">
+      <label for="cd-instructor-entry">Director</label>
+      <input type="text" name="cd-instructor-entry" id="instructor-entry" placeholder="Course Instructor">
+      <button type="submit">Add Instructor</button>
+    </form>
+
+    <form id="assist1-form">
+      <label for="assist1-entry">Assist 1</label>
+      <input type="text" name="assist-1-entry" id="instructor-entry" placeholder="Assist">
+      <button type="submit">Add Instructor</button>
+    </form>
+
+    <form id="assist2-form">
+      <label for="assist2-entry">Assist 2</label>
+      <input type="text" name="assist-2-entry" id="instructor-entry" placeholder="Assist">
+      <button type="submit">Add Instructor</button>
+    </form>
+
+    <form id="assist3-form">
+      <label for="assist3-entry">Assist 3</label>
+      <input type="text" name="assist-3-entry" id="instructor-entry" placeholder="Assist">
+      <button type="submit">Add Instructor</button>
+    </form>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
