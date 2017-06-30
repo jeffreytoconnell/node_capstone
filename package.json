@@ -4,8 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+   "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "mongoose": "*",
+    "mongodb": "*"
+   },
   "author": "",
   "license": "ISC"
 }
