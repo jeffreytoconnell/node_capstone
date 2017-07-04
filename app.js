@@ -3,27 +3,83 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
-const router = express.Router();
 
-const Course = require('./models');
-const url = 'mongodb://localhost:8080';
+
+// const Course = require('./models/course');
+const url = 'mongodb://jeff:gunner@ds163181.mlab.com:63181/thinkful';
+mongoose.connect(url);
+
 
 app.use(bodyParser.json());
+app.use(express.static('public'))
+
+
+// Course Schema
+var courseSchema = mongoose.Schema({
+    date:{
+        type: String,
+        required: false
+    },
+    course:{
+        type: String,
+        required: false
+    },
+    location:{
+        type: String,
+        required: false
+    },
+    courseDirector:{
+        type: String,
+        required: false
+    },
+    assist1:{
+        type: String,
+        required: false
+    },
+    assist2:{
+        type: String,
+        required: false
+    },
+    assist3:{
+        type: String,
+        required: false
+    }
+});
+
+var Course = mongoose.model('course', courseSchema)
 
 // GET HOME PAGE
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
     res.render('index');
 });
 
 // POST
-router.post('/course', function(req, res, next) {
-    var course = {
-        date: req.body.date,
-        course: req.body.course,
-        location: req.body.location,
-        courseDirector: req.body.courseDirector,
-        assist1: req.body.assist1,
-        assist2: req.body.assist2,
-        assist3: req.body.assist3
-    }
+app.post('/course', function(req, res, next) {
+    console.log(req.body);
+    var course = 
+    thiscourse = new Course(req.body);
+    // Course.create()
+    thiscourse.save(function (err){
+        if (err){
+            res.send(err);
+        }
+    })
+//    // mongoose.connect(url, function(err, db) {
+//      //   if (err) {
+//        //     throw err;
+//         }
+//         db.collection('course_data').insertOne(course, function(err, result) {
+//             if (err) {
+//                 throw err;
+//             }
+     //       console.log('Course added');
+//        })
+  //  })
 });
+
+app.listen(8080, function(){
+    console.log("app running 8080");
+})
+
+
+
