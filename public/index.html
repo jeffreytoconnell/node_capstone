@@ -6,7 +6,6 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
   <link rel="stylesheet" href="jquery.datetimepicker.css">
 </head>
 
@@ -15,15 +14,7 @@
   <div class="container">
 
     <h2>Date</h2>
-    <select id = "date">
-      <option value = "8/1/17">8/1/17 </option>
-      <option value = "8/2/17">8/2/17 </option>
-      <option value = "8/3/17">8/3/17 </option>
-      <option value = "8/4/17">8/4/17 </option>
-      <option value = "8/5/17">8/5/17 </option>
-      <option value = "8/6/17">8/6/17 </option>
-      <option value = "8/7/17">8/7/17 </option>
-      <option value = "8/8/17">8/8/17 </option>
+    <select type="text" id="date">
     </select>
 
     <h2>Course</h2>
@@ -61,7 +52,16 @@
 
   </div>
   <div class="calendar"></div>
-  <input type="text" id="datepicker">
+  
+
+
+
+
+
+
+
+
+
 
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src="jquery.datetimepicker.js"></script>
@@ -83,14 +83,23 @@
         url: '/course'
       })
     })
+
+    
     $.getJSON('/course', function(docs){
         console.log(docs);
         $.each(docs, function(key, value){   
         var location = value.location;
-        $('.calendar').prepend(location);
+        var course = value.course;
+        var courseDirector = value.courseDirector;
+        var date = value.date;
+        var assist1 = value.assist1;
+        var assist2 = value.assist2;
+        var assist3 = value.assist3;
+        $('.calendar').prepend(' ', date, ' ', course,' ',location, ' ', courseDirector, ' ', assist1, ' ', assist2, ' ', assist3, '<br />');
+        
         })
       })
-      jQuery('#datepicker').datetimepicker();
+      $('#date').datetimepicker();
   </script>
 </body>
 

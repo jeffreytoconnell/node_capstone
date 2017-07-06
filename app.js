@@ -72,25 +72,14 @@ app.get('/course', function(req, res, next) {
         res.json(docs)
     })
 })
-
-
-
-
-
-
-
-//    // mongoose.connect(url, function(err, db) {
-//      //   if (err) {
-//        //     throw err;
-//         }
-//         db.collection('course_data').insertOne(course, function(err, result) {
-//             if (err) {
-//                 throw err;
-//             }
-     //       console.log('Course added');
-//        })
-  //  })
 });
+
+// DELETE
+app.delete('/course:id', function (req, res) {
+    var id = req.params.id;
+    console.log(id);
+    
+})
 
 app.listen(8080, function(){
     console.log("app running 8080");
