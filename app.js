@@ -55,15 +55,30 @@ app.get('/', function(req, res, next) {
 
 // POST
 app.post('/course', function(req, res, next) {
-    console.log(req.body);
-    var course = 
+    console.log(req.body); 
     thiscourse = new Course(req.body);
-    // Course.create()
     thiscourse.save(function (err){
         if (err){
             res.send(err);
         }
     })
+
+// GET
+app.get('/course', function(req, res, next) {
+    console.log(req.body)
+    Course.find(function (err, docs) {
+        if(err)
+        res.send(err)
+        res.json(docs)
+    })
+})
+
+
+
+
+
+
+
 //    // mongoose.connect(url, function(err, db) {
 //      //   if (err) {
 //        //     throw err;
