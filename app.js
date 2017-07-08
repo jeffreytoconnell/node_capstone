@@ -62,7 +62,7 @@ app.post('/course', function(req, res, next) {
             res.send(err);
         }
     })
-
+});
 // GET
 app.get('/course', function(req, res, next) {
     console.log(req.body)
@@ -72,14 +72,20 @@ app.get('/course', function(req, res, next) {
         res.json(docs)
     })
 })
-});
+
 
 // DELETE
-app.delete('/course:id', function (req, res) {
-    var id = req.params.id;
-    console.log(id);
+app.delete('/course/:id', (req, res) => {
+    console.log(req.params);
+    Course.findByIdAndRemove(req.params.id, function(err, docs){
+        if(err)
+        res.send(err)
+        
+    });
+    console.log('Deleted', req.params.id);
+    res.json({Message: "Item Delted"})
     
-})
+});
 
 app.listen(8080, function(){
     console.log("app running 8080");

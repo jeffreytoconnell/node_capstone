@@ -57,19 +57,15 @@
 
 
 
-
-
-
-
-
-
-
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src="jquery.datetimepicker.js"></script>
   <script>
+    $(document).ready(function () {
+
+    
     $('#submit_form').click(function () {
       var data = {};
-      data.date = $('#date').val();
+      data.date = $('#datetimepicker').val();
       data.course = $('#course').val();
       data.location = $('#location').val();
       data.courseDirector = $('#courseDirector').val();
@@ -83,10 +79,12 @@
         contentType: 'application/json',
         url: '/course'
       })
+      getCourses();
     })
-
-    $.getJSON('/course', function (docs) {
-      console.log(docs);
+    function getCourses (){
+   $.getJSON('/course', function (docs) {
+     console.log(docs);
+     $('.calendar').html('');
       $.each(docs, function (key, value) {
         var location = value.location;
         var course = value.course;
@@ -95,14 +93,28 @@
         var assist1 = value.assist1;
         var assist2 = value.assist2;
         var assist3 = value.assist3;
-        $('.calendar').append(' ', date, ' ', course, ' ', location, ' ', courseDirector, ' ', assist1, ' ',
-          assist2, ' ', assist3, '<br />');
+        $('.calendar').prepend('<div id="'+value._id+'">'+ date + ' '+course+ ' '+ location+ ' '+ courseDirector+ ' '+ assist1+ ' '+
+          assist2+ ' '+ assist3+ '<button class="del"> Delete </button>  </div><br />');
+
 
       })
-    })
+      $('.del').click(function(){
+    var idToDelete = $(this).parent('div').attr('id')
+    console.log(idToDelete);
+     $.ajax({
+        type: 'delete',
+        url: '/course/'+idToDelete
+      })
+      getCourses();
+  })
+    })//end of get JSON
+  };// end of get courses function
+  
+    getCourses();
     $('#datetimepicker').datetimepicker({
 
     });
+})
   </script>
 </body>
 
