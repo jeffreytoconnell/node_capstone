@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Course Schedule</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="jquery.datetimepicker.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h2>Date</h2>
+    <input id="datetimepicker" type="text" value="date">
+      
+
+    <h2>Course</h2>
+    <select id="course">
+      <option value="ACLS" > ACLS </option>
+      <option value="PALS"> PALS </option>
+      <option value="BLS"> BLS </option>
+    </select>
+
+    <h2>Location</h2>
+    <select id="location">
+    <option value="Roseville"> Roseville </option>
+    <option value="West Sac"> West Sac </option>
+    <option value="DGMC"> DGMC </option>
+    </select>
+
+
+    <h2>Instructor List</h2>
+
+    <label for="cd-instructor-entry">Director</label>
+    <input type="text" name="courseDirector" id="courseDirector" placeholder="Course Instructor">
+
+    <label for="assist1-entry">Assist 1</label>
+    <input type="text" name="assist1" id="assist1" placeholder="Assist">
+
+    <label for="assist2-entry">Assist 2</label>
+    <input type="text" name="assist2" id="assist2" placeholder="Assist">
+
+    <label for="assist3-entry">Assist 3</label>
+    <input type="text" name="assist3" id="assist3" placeholder="Assist">
+
+    <input id="submit_form" type="submit" value="Submit">
+    <hr>
+
+
+  </div>
+  <div class="calendar"></div>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="jquery.datetimepicker.js"></script>
+  <script>
+    $(document).ready(function () {
+
+    
+    $('#submit_form').click(function () {
+      var data = {};
+      data.date = $('#datetimepicker').val();
+      data.course = $('#course').val();
+      data.location = $('#location').val();
+      data.courseDirector = $('#courseDirector').val();
+      data.assist1 = $('#assist1').val();
+      data.assist2 = $('#assist2').val();
+      data.assist3 = $('#assist3').val();
+      //data.user = user  
+      $.ajax({
+        type: 'post',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        url: '/course'
+      })
+      getCourses();
+    })
+    function getCourses (){
+   $.getJSON('/course', function (docs) {
+     console.log(docs);
+     $('.calendar').html('');
+      $.each(docs, function (key, value) {
+        var location = value.location;
+        var course = value.course;
+        var courseDirector = value.courseDirector;
+        var date = value.date;
+        var assist1 = value.assist1;
+        var assist2 = value.assist2;
+        var assist3 = value.assist3;
+        $('.calendar').prepend('<div id="'+value._id+'">'+ date + ' '+course+ ' '+ location+ ' '+ courseDirector+ ' '+ assist1+ ' '+
+          assist2+ ' '+ assist3+ '<button class="del"> Delete </button>  </div><br />');
+
+
+      })
+      $('.del').click(function(){
+    var idToDelete = $(this).parent('div').attr('id')
+    console.log(idToDelete);
+     $.ajax({
+        type: 'delete',
+        url: '/course/'+idToDelete
+      })
+      getCourses();
+  })
+    })//end of get JSON
+  };// end of get courses function
+  
+    getCourses();
+    $('#datetimepicker').datetimepicker({
+
+    });
+})
+  </script>
+</body>
+
+</html>
