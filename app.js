@@ -34,7 +34,7 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
 
 passport.use(basicStrategy);
 
-router.post('/', (req, res) => {
+app.post('/', (req, res) => {
   if (!req.body) {
     return res.status(400).json({message: 'No request body'});
   }
@@ -140,7 +140,7 @@ var Course = mongoose.model('course', courseSchema)
 
 // GET HOME PAGE
 app.get('/', function(req, res, next) {
-    res.render('index.html');
+    res.render('schedule.html');
 });
 
 // POST
